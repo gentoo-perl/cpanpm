@@ -132,23 +132,6 @@ unless (exists $prereq_pm->{"LWP::UserAgent"} && $] ge '5.006') {
 
 }
 if ($HAVE_FILE_SPEC) {
-  # import PAUSE public key to user's keychain
-  require Config;
-  my $dir;
-  for $dir (split /$Config::Config{path_sep}/, $ENV{PATH}) {
-    my $abs = File::Spec->catfile($dir, 'gpg');
-    my $cmd;
-    if ($cmd = MM->maybe_command($abs)) {
-      print "Importing PAUSE public key into your GnuPG keychain... ";
-      system($cmd, '--quiet', '--import', <PAUSE*.pub>);
-      print "done!\n";
-      print "(You may wish to trust it locally with 'gpg --lsign-key 450F89EC')\n";
-      last;
-    }
-  }
-}
-
-if ($HAVE_FILE_SPEC) {
     my $have_distroprefs = -d "distroprefs";
     my $have_notinchecksums = -f File::Spec->catdir("t","CPAN","authors","id","A","AN","ANDK","NotInChecksums-0.000.tar.gz");
     if ($have_distroprefs && !$have_notinchecksums) {
