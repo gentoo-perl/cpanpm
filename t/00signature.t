@@ -36,6 +36,9 @@ BEGIN {
             $exit_message = "Cannot connect to the keyserver";
         }
     }
+    unless ($exit_message) {
+        $exit_message = "DIST patched by Gentoo, invalidating SIGNATURE"
+    }
     if ($exit_message) {
         $|=1;
         print "1..0 # SKIP $exit_message\n";
