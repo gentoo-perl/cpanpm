@@ -84,23 +84,6 @@ if ($^O eq "darwin") {
 }
 
 if ($HAVE_FILE_SPEC) {
-  # import PAUSE public key to user's keychain
-  require Config;
-  my $dir;
-  for $dir (split /$Config::Config{path_sep}/, $ENV{PATH}) {
-    my $abs = File::Spec->catfile($dir, 'gpg');
-    my $cmd;
-    if ($cmd = MM->maybe_command($abs)) {
-      print "Importing PAUSE public key into your GnuPG keychain... ";
-      system($cmd, '--quiet', '--import', <PAUSE*.pub>);
-      print "done!\n";
-      print "(You may wish to trust it locally with 'gpg --lsign-key 450F89EC')\n";
-      last;
-    }
-  }
-}
-
-if ($HAVE_FILE_SPEC) {
     unless (-f File::Spec->catdir("t","CPAN","authors","id","A","AN","ANDK","NotInChecksums-0.000.tar.gz")) {
         warn <<EOW;
 
